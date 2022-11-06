@@ -93,10 +93,45 @@ public class Recipe {
                     }
                     break;
                 case 4:
-                    System.out.println("Updayte the data");
+                    System.out.println("Update the data");
+                    System.out.println("Enter the id ");
+                    id = sc.nextInt();
+                    System.out.println("Name of the food");
+                    name = sc.next();
+                    System.out.println("Category");
+                    cate = sc.next();
+                    System.out.println("Taste");
+                    taste = sc.next();
+                    System.out.println("price");
+                    price = sc.nextInt();
+                    try{
+                        Class.forName("com.mysql.jdbc.Driver");
+                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/recipe_db", "root", "");
+                        String sql = "UPDATE `food` SET `Name`='"+name+"',`Category`='"+cate+"',`Taste`='"+taste+"',`Price`='"+price+"' WHERE `id`="+id;
+                        Statement stmt = con.createStatement();
+                        stmt.executeUpdate(sql);
+                        System.out.println("Updated successfully");
+
+                    }
+                    catch (Exception e){
+                        System.out.println(e);
+                    }
                     break;
                 case 5:
                     System.out.println("Delete the data");
+                    System.out.println("Enter the id");
+                    id = sc.nextInt();
+                    try{
+                        Class.forName("com.mysql.jdbc.Driver");
+                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/recipe_db", "root", "");
+                        String sql = "DELETE FROM `food` WHERE `id`="+id;
+                        Statement stmt = con.createStatement();
+                        stmt.executeUpdate(sql);
+
+                    }
+                    catch (Exception e){
+                        System.out.println(e);
+                    }
                     break;
                 case 6:
                     System.exit(0);
