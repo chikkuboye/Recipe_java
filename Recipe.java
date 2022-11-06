@@ -1,6 +1,4 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
+import java.sql.*;
 import java.util.Scanner;
 
 public class Recipe {
@@ -48,9 +46,51 @@ public class Recipe {
                     break;
                 case 2:
                     System.out.println("View the data");
+                    try{
+                        Class.forName("com.mysql.jdbc.Driver");
+                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/recipe_db", "root", "");
+                        String sql = "SELECT `Name`, `Category`, `Taste`, `Price` FROM `food`";
+                        Statement stmt = con.createStatement();
+                        ResultSet rs = stmt.executeQuery(sql);
+                        while (rs.next()){
+                            name = rs.getString("Name");
+                            cate = rs.getString("Category");
+                            taste = rs.getString("Taste");
+                            price = rs.getInt("Price");
+                            System.out.println("Name="+name);
+                            System.out.println("category ="+cate);
+                            System.out.println("Taste="+taste);
+                            System.out.println("Price="+price+'\n');
+                        }
+                    }
+                    catch (Exception e){
+                        System.out.println(e);
+                    }
                     break;
                 case 3:
                     System.out.println("Search the data");
+                    System.out.println("Enter the id");
+                    int id = sc.nextInt();
+                    try{
+                        Class.forName("com.mysql.jdbc.Driver");
+                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/recipe_db", "root", "");
+                        String sql = "SELECT `id`, `Name`, `Category`, `Taste`, `Price` FROM `food` WHERE `id`="+id;
+                        Statement stmt = con.createStatement();
+                        ResultSet rs = stmt.executeQuery(sql);
+                        while (rs.next()){
+                            name = rs.getString("Name");
+                            cate = rs.getString("Category");
+                            taste = rs.getString("Taste");
+                            price = rs.getInt("Price");
+                            System.out.println("Name="+name);
+                            System.out.println("category ="+cate);
+                            System.out.println("Taste="+taste);
+                            System.out.println("Price="+price+'\n');
+                        }
+                    }
+                    catch (Exception e){
+                        System.out.println(e);
+                    }
                     break;
                 case 4:
                     System.out.println("Updayte the data");
